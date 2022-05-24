@@ -1,5 +1,11 @@
 require 'rails_helper'
+require 'spec_helper'
+require 'action_controller'
 
 RSpec.describe Item, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  #asociations tests
+  it {should belong_to(:todo)}
+
+  #validation tests
+  it {should validate_pesence_of(:name)}
 end
