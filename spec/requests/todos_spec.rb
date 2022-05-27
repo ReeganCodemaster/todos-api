@@ -20,12 +20,12 @@ RSpec.describe 'Todos API', type: :request do
   end
 
   #tests for get/todos/:id
-  describe 'GET todos/:id' do
+  describe 'GET /todos/:id' do
     #Make HTTP request bfore each test
     before{get "/todos/#{todo_id}"}
     
     context 'When the record exists' do
-      it 'reurns todos/:id' do
+      it 'reurns /todos/:id' do
         expect(json).not_to_be_empty
         expect(json['id']).to eq(todo_id)
       end
@@ -75,6 +75,32 @@ RSpec.describe 'Todos API', type: :request do
       it 'it returns a validation failure message' do 
         expect(response.body).to eq(/Validation failed: Created by cant't be blank/)
       end
+    end
+  end
+
+  #test for PUT /todos/:id
+   describe 'PUT todos/:id' do 
+    let(:valid_attributes) { {title:'Shopping'} }
+    
+    context 'when the record exists' do 
+      before {put "/todos/#{todo_id}", params:valid_attributes}
+
+      it 'updates the record' do
+        expect(response).to be_empty
+      end
+
+      it 'returns status code 204' do
+        expect(respeonse).to have_http_status(204)
+      end
+    end
+  end
+
+  #tests for DELETE /todos/:id
+  describe 'DELETE todos/:id' do
+    before {delete "/todos/#{todo_id}"}
+
+    it 'returns status code 204' do 
+      expect(response).to have_http_status(204)  
     end
   end
 end
