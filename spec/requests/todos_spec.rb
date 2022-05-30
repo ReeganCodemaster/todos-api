@@ -48,7 +48,7 @@ RSpec.describe 'Todos API', type: :request do
     end
   end
 
-  #tets for POST todos
+  #tets for POST /todos
   describe 'POST todos' do 
     #creating valid payload 
     let(:valid_attributes) { {title:'Learn Elm', created_by:1} }
@@ -75,6 +75,15 @@ RSpec.describe 'Todos API', type: :request do
       it 'it returns a validation failure message' do 
         expect(response.body).to eq(/Validation failed: Created by cant't be blank/)
       end
+    end
+  end
+  
+  #tests for DELETE /todos/:id
+  describe 'test DELETE /todos/:id' do
+    before {delete "/todos/#{todo_id}"}
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
     end
   end
 end
