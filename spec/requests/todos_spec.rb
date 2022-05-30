@@ -10,7 +10,7 @@ RSpec.describe 'Todos API', type: :request do
     before {get '/todos'}
 
     it 'returns todos' do 
-      expect(json).not_to_be_empty
+      expect(json).not_to be_empty
       expect(json.size).to eq(10)
     end
 
@@ -26,7 +26,7 @@ RSpec.describe 'Todos API', type: :request do
     
     context 'When the record exists' do
       it 'reurns todos/:id' do
-        expect(json).not_to_be_empty
+        expect(json).not_to be_empty
         expect(json['id']).to eq(todo_id)
       end
     end 
@@ -73,7 +73,7 @@ RSpec.describe 'Todos API', type: :request do
       end
 
       it 'it returns a validation failure message' do 
-        expect(response.body).to eq(/Validation failed: Created by cant't be blank/)
+    expect(response.body).to match(/Validation failed: Created by can't be blank/)
       end
     end
   end
