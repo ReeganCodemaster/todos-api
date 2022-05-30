@@ -19,6 +19,11 @@ class ItemsController < ApplicationController
     @item.update(item_params)
     head :no_content
   end
+  
+  def destroy
+    @item.destroy
+    head :no_content
+  end
   private
   def set_todo
     @todo = Todo.find(params[:todo_id])
