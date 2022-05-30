@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Items API' do
-  let(:todo) { create(:todo) }
-  let(:items) { create_list(:item,20, todo_id: todo.id) }
-  let(:todo_id) {  todo.id }
+  let!(:todo) { create(:todo) }
+  let!(:items) { create_list(:item, 20, todo_id: todo.id) }
+  let(:todo_id) { todo.id }
   let(:id) { items.first.id }
 
   #tests for GET todos/:todo_id/items
@@ -16,11 +16,12 @@ RSpec.describe 'Items API' do
       end
 
       it 'returns all todo items' do
-        expect(json.size).to eq{ 20 }
+        expect(json.size).to eq(20)
       end
     end
 
     context 'when todo does not exist' do
+      let(:todo_id) { 0 }
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
       end
@@ -46,16 +47,18 @@ RSpec.describe 'Items API' do
       end
     end
     context 'when todo item does not exist' do
+      let(:id) { 0 }
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find Todo Item/)
+        expect(response.body).to match(/Couldn't find Item/)
       end
     end
   end
 
+  #tests for POST /todos/:todo_id/items
   describe 'POST /todos/:todo_id/items' do
     let(:valid_attributes) {{ name:'Visit Narnai', done:false }}
 
@@ -68,7 +71,7 @@ RSpec.describe 'Items API' do
     end
 
     context 'when request is invalid' do
-      before {post "todos/#{todo_id}/items", params:{}}
+      before {post "/todos/#{todo_id}/items", params:{}}
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -84,13 +87,16 @@ RSpec.describe 'Items API' do
   describe 'PUT /todos/:todo_id/items/:id' do
     let(:valid_attributes) { { name:'Mozart'} }
 
+    before { put "/todos/#{todo_id}/items/#{id}", params:valid_attributes}
+
     context 'when todo item exists' do
       it 'returns status code 204' do
         expect(response).to have_http_status(204)
       end
 
       it 'updates the item' do 
-        expect(updates_item.name).to match(/Mozart/)
+        updated_item = Item.find(id)
+        expect(updated_item.name).to match(/Mozart/)
       end
     end
 
@@ -102,7 +108,7 @@ RSpec.describe 'Items API' do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find Todo Item/)
+        expect(response.body).to match(/Couldn't find Item/)
       end
     end
   end
