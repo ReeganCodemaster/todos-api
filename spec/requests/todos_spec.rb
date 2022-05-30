@@ -20,7 +20,7 @@ RSpec.describe 'Todos API', type: :request do
   end
 
   #tests for get/todos/:id
-  describe 'GET todos/:id' do
+  describe 'GET /todos/:id' do
     #Make HTTP request bfore each test
     before{get "/todos/#{todo_id}"}
     
@@ -49,7 +49,7 @@ RSpec.describe 'Todos API', type: :request do
   end
 
   #tets for POST /todos
-  describe 'POST todos' do 
+  describe 'POST /todos' do 
     #creating valid payload 
     let(:valid_attributes) { {title:'Learn Elm', created_by:1} }
 
@@ -77,7 +77,7 @@ RSpec.describe 'Todos API', type: :request do
       end
     end
   end
-  
+
   #tests for DELETE /todos/:id
   describe 'test DELETE /todos/:id' do
     before {delete "/todos/#{todo_id}"}
