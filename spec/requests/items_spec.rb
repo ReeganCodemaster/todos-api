@@ -1,14 +1,14 @@
-require 'rails-helper'
+require 'rails_helper'
 
-Rspec.describe 'Items API' do
+RSpec.describe 'Items API' do
   let(:todo) { create(:todo) }
-  let(:items) { create(:item,20, todo_id: todo.id) }
-  let(:todo_id) {create(:todo_id: todo.id)}
-  let(:id) {create(:id: items.id)}
+  let(:items) { create_list(:item,20, todo_id: todo.id) }
+  let(:todo_id) {  todo.id }
+  let(:id) { items.first.id }
 
   #tests for GET todos/:todo_id/items
   describe 'GET /todos/:todo_id/items' do
-    before( get "/todos/#{todo_id}/items" )
+    before { get "/todos/#{todo_id}/items" }
 
     context 'when todo exists' do
       it 'returns status code 200' do
@@ -16,7 +16,7 @@ Rspec.describe 'Items API' do
       end
 
       it 'returns all todo items' do
-        expect(json.size).to eq(20)
+        expect(json.size).to eq{ 20 }
       end
     end
 
@@ -57,7 +57,7 @@ Rspec.describe 'Items API' do
   end
 
   describe 'POST /todos/:todo_id/items' do
-    let(:valid_attributes) eq({ name:'Visit Narnai', done:false })
+    let(:valid_attributes) {{ name:'Visit Narnai', done:false }}
 
     context 'when request is valid' do
       before {post "/todos/#{todo_id}/items", params:valid_attributes}
@@ -82,7 +82,7 @@ Rspec.describe 'Items API' do
 
   #tets for PUT /todos/:todo_id/items/:id
   describe 'PUT /todos/:todo_id/items/:id' do
-    let(:valid_attributes) eq({ name:'Mozart'})
+    let(:valid_attributes) { { name:'Mozart'} }
 
     context 'when todo item exists' do
       it 'returns status code 204' do
@@ -95,7 +95,7 @@ Rspec.describe 'Items API' do
     end
 
     context 'when the todo item does not exist' do
-      let(:id) eq{ 0 }
+      let(:id) { 0 }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
