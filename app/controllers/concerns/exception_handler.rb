@@ -1,4 +1,4 @@
-module ExceptionHandler do
+module ExceptionHandler
   extend ActiveSupport::Concern
 
   class AuthenticationError < StandardError; end
