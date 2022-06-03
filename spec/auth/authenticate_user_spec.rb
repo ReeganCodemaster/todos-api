@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe AuthenticateUser do
-  let(:user) {creatae_user(:user)}
+  let(:user) { create(:user) }
   subject(:valid_auth_obj) { described_class.new(user.email, user.password)}
-  subject(:invalid_auth_obj) {described_class.new('foo','bar')}
+  subject(:invalid_auth_obj) { described_class.new('foo','bar') }
 
   describe '#call' do
     context 'when valid credentails' do
@@ -15,7 +15,7 @@ RSpec.describe AuthenticateUser do
      context 'when invalid credentails' do
       it 'raises an authentication error' do
         expect {invalid_auth_obj.call }
-          .to raises_error(
+          .to raise_error(
             ExceptionHandler::AuthenticationError,
             /Invalid credentails/
           )
