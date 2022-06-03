@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :todos do
     resources :items
   end
+  post 'auth/login', to: 'authentication#authenticate'
   # Defines the root path route ("/")
   # root "articles#index"
 end
