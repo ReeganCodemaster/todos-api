@@ -12,9 +12,9 @@ RSpec.describe AuthenticationController, type: :request do
     end
     let(:Invalid_credentails) do
       {
-        email: Faker::Internet.email
+        email: Faker::Internet.email,
         password: Faker::Internet.password
-    }.to_json
+      }.to_json
     end
 
     # before { allow(request).to recieve(:headers).and_retrun(:headers) }
