@@ -4,7 +4,7 @@ RSpec.describe 'Users API', type: :requests do
   let(:user) { build(:user)}
   let(:headers) {valid_headers.except('Authorization')}
   let(:valid_attributes) do
-    attributes_for(:user, password_conformation: user.password)
+    attributes_for(:user, password_confirmation: user.password)
   end
 
   describe 'POST /signup' do
@@ -14,9 +14,10 @@ RSpec.describe 'Users API', type: :requests do
       it 'creates a new user' do
         expect(response).to have_http_status(201)
       end
-       it 'returns success message' do
-          expect(json['message']).to match(/Acount created succesfully/)
-       end
+      
+      it 'returns success message' do
+        expect(json['message']).to match(/Account created successfully/)
+      end
 
        it 'returns a authentication token' do
           expect(json['auth_token']).not_to be_nil
