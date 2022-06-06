@@ -4,7 +4,6 @@ RSpec.describe 'Authentication', type: :request do
   describe 'POST /auth/login' do
     let!(:user) { create(:user) }
     let(:headers) {valid_headers.except('Authorization') }
-
     let(:valid_credentials) do
       {
         email: user.email,
@@ -21,10 +20,9 @@ RSpec.describe 'Authentication', type: :request do
     # before { allow(request).to receive(:headers).and_return(:headers) }
 
     context 'when request is valid' do
-      before { post '/auth/login', params: valid_credentials, headers: headers }
-
+      before { post '/auth/login', params:valid_credentials, headers: headers }
+      
       it 'returns an authentication token' do
-        # binding.pry
         expect(json['auth_token']).not_to be_nil
       end
     end
