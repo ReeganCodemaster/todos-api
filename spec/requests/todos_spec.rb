@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Todos API', type: :request do 
   let(:user) { create(:user) }
-  let!(:todos) {create_list(:todo, 10)}
+  let!(:todos) {create_list(:todo, 10, created_by: user.id)}
   let!(:todo_id) { todos.first.id }
   let(:headers) { valid_headers }
 
@@ -24,7 +24,7 @@ RSpec.describe 'Todos API', type: :request do
   #tests for get/todos/:id
   describe 'GET /todos/:id' do
     #Make HTTP request bfore each test
-    before{get "/todos/#{todo_id}", paarams:{}, headers: headers}
+    before{get "/todos/#{todo_id}", params:{}, headers: headers}
     
     context 'When the record exists' do
       it 'reurns todos/:id' do
@@ -70,7 +70,7 @@ RSpec.describe 'Todos API', type: :request do
     end
 
     context 'when the request is invalid' do
-      let(invalid_attributes) { {title: nil}.to_json }
+      let(:invalid_attributes) { {title: nil}.to_json }
       before {post '/todos', params:invalid_attributes, headers: headers}
 
       it 'returns status code 422' do
