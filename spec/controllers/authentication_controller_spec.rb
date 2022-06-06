@@ -10,28 +10,28 @@ RSpec.describe AuthenticationController, type: :request do
         password:user.password
       }.to_json
     end
-    let(:Invalid_credentails) do
+    let(:invalid_credentials) do
       {
         email: Faker::Internet.email,
         password: Faker::Internet.password
       }.to_json
     end
 
-    # before { allow(request).to recieve(:headers).and_retrun(:headers) }
+    before { allow(request).to receive(:headers).and_return(:headers) }
 
     context 'when requesst is valid' do
       before { post '/auth/login', params: valid_credentials, headers: headers }
 
-      it 'retruns an authentication token' do
-        expects(json['auth_token']).not_to be_nil
+      it 'returns an authentication token' do
+        expect(json['auth_token']).not_to be_nil
       end
     end
 
     context 'when request is invalid' do
       before { post '/auth/login', params: invalid_credentials, headers: headers }
 
-      it 'retruns a failure message' do
-        expects(json['message']).to match(/Invalid credentials/)
+      it 'returns a failure message' do
+        expect(json['message']).to match(/Invalid credentials/)
       end
     end
   end
