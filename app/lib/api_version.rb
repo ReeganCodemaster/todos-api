@@ -13,6 +13,6 @@ class ApiVersion
   private
   def check_headers(headers)
     accept = headers[:accept]
-    accpet && accept.include?("application/vnd.todos.#{version}+json")
+    accept && accept.include?("application/vnd.todos.#{version}+json")
   end
 end
