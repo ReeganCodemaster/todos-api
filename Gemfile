@@ -61,3 +61,5 @@ gem "bcrypt", "~> 3.1"
 gem "jwt", "~> 2.3"
 
 gem "active_model_serializers", "~> 0.10.13"
+
+gem "will_paginate", "~> 3.3"
