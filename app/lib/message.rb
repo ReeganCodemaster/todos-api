@@ -20,7 +20,7 @@ class Message
   end
 
   def self.account_created
-    'Account created succesfully'
+    'Account created successfully'
   end
 
   def self.account_not_created
