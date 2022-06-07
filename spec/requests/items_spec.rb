@@ -6,7 +6,7 @@ RSpec.describe 'Items API' do
   let!(:items) { create_list(:item, 20, todo_id: todo.id) }
   let(:todo_id) { todo.id }
   let(:id) { items.first.id }
-  let(:header) { valid_headers }
+  let(:headers) { valid_headers }
 
   #tests for GET todos/:todo_id/items
   describe 'GET /todos/:todo_id/items' do
